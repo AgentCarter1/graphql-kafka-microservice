@@ -8,8 +8,15 @@ import { UsersResolver } from './users.resolver';
     ClientsModule.register([
       {
         name: 'USERS_SERVICE',
-        transport: Transport.TCP,
-        options: { host: 'localhost', port: 3001 },
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            brokers: ['localhost:9092'],
+          },
+          consumer: {
+            groupId: 'gateway-consumer',
+          },
+        },
       },
     ]),
   ],
