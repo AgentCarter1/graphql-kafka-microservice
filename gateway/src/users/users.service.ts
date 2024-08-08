@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { ClientKafka } from '@nestjs/microservices';
+import { ClientTCP } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
 import { CreateUserInput } from './user.model';
 
 @Injectable()
 export class UsersService {
-  constructor(@Inject('USERS_SERVICE') private readonly client: ClientKafka) {}
+  constructor(@Inject('USERS_SERVICE') private readonly client: ClientTCP) {}
 
   async onModuleInit() {
-    this.client.subscribeToResponseOf('get-user');
-    this.client.subscribeToResponseOf('create-user');
     await this.client.connect();
   }
 
