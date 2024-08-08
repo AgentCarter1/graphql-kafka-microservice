@@ -6,10 +6,16 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @MessagePattern('get-all-user')
+  getAllUser(@Payload() id: string) {
+    return this.usersService.getAllUser();
+  }
+
   @MessagePattern('get-user')
   getUser(@Payload() id: string) {
     return this.usersService.findOne(id);
   }
+
   @MessagePattern('create-user')
   createUser(@Payload() name: string) {
     return this.usersService.createUser(name);

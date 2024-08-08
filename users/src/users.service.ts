@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UsersService {
-  private readonly users = [{ id: '1', name: 'John Doe' }];
+  constructor(private readonly userRepository: UserRepository) {}
 
-  findOne(id: string) {
-    const user = this.users.find((user) => user.id === id);
-    if (!user) return 'User Not Found';
-    return user;
+  async getAllUser() {
+    return this.userRepository.find({});
   }
 
-  createUser(name: string) {
-    const newUser = { id: (this.users.length + 1).toString(), name };
-    this.users.push(newUser);
-    return newUser;
+  async findOne(userId: string) {
+    return this.userRepository.findOne({ _id: userId });
+  }
+
+  async createUser(name: string) {
+    return this.userRepository.create(name);
   }
 }

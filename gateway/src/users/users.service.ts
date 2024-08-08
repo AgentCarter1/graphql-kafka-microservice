@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ClientTCP } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
-import { CreateUserInput } from './user.model';
+import { CreateUserInput } from './model/user.model';
 
 @Injectable()
 export class UsersService {
@@ -12,10 +12,10 @@ export class UsersService {
   }
 
   async getUser(id: string) {
-    return this.client.send('get-user', id).toPromise();
+    return this.client.send('get-user', id);
   }
 
   async createUser(createUserInput: CreateUserInput) {
-    return this.client.send('create-user', createUserInput.name).toPromise();
+    return this.client.send('create-user', createUserInput.name);
   }
 }
