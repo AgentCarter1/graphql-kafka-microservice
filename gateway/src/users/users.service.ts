@@ -18,4 +18,8 @@ export class UsersService {
   async createUser(createUserInput: CreateUserInput) {
     return this.client.send('create-user', createUserInput.name);
   }
+
+  async getAllUser() {
+    return this.client.send('get-all-user', {});
+  }
 }
